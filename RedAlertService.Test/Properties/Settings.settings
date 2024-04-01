@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="RedAlertService.Test.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="AccessTokenEndpoint" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://login.microsoftonline.com/{tenant}/oauth2/v2.0/token</Value>
+    </Setting>
+    <Setting Name="Resource" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://graph.microsoft.com/.default</Value>
+    </Setting>
+    <Setting Name="SendMailEndpoint" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://graph.microsoft.com/v1.0/me/sendMail</Value>
+    </Setting>
+    <Setting Name="ClientId" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">b7e37d1b-cf7b-4234-90f3-23ef7a4209fe</Value>
+    </Setting>
+    <Setting Name="ClientSecret" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Yte8Q~OS1SafUCGtHth0Pn50WBQBbLwbWMQtKb_y</Value>
+    </Setting>
+    <Setting Name="TenantId" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">dbd9658b-d4fd-49b4-9143-4a7f4f6336c7</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

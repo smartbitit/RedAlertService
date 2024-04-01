@@ -1,0 +1,2 @@
+https://learn.microsoft.com/en-us/graph/sdks/choose-authentication-providers?tabs=csharp#on-behalf-of-provider
+https://www.linkedin.com/pulse/sending-smtp-email-microsoft-graph-oauth-using-c-elie-karkafy/

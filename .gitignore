@@ -1,0 +1,8 @@
+
+/.vs
+/RedAlertService.Common/obj
+/RedAlertService.Email/bin
+/RedAlertService.Email/obj
+/RedAlertService.Test/bin
+/RedAlertService.Test/obj
+/RedAlertService.Common/bin
