@@ -1,0 +1,1 @@
+sc create RedAlertService binPath= "D:\SmartSVN\Clients\Redthorn\Projects\RedAlertService\SourceCode\RedAlertService.WorkerService\bin\Debug\net6.0\RedAlertService.WorkerService.exe"

@@ -6,3 +6,5 @@
 /RedAlertService.Test/bin
 /RedAlertService.Test/obj
 /RedAlertService.Common/bin
+/RedAlertService.WorkerService/bin
+/RedAlertService.WorkerService/obj

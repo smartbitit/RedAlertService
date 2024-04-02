@@ -7,12 +7,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedAlertService.Test", "Red
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E0A4A665-4D2D-4901-A175-5D60C511FDE0}"
 	ProjectSection(SolutionItems) = preProject
-		References.txt = References.txt
+		Dependencies.txt = Dependencies.txt
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedAlertService.Email", "RedAlertService.Email\RedAlertService.Email.csproj", "{0CB6B7B0-56C6-4A0A-843F-7C16FDA56DE8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedAlertService.Common", "RedAlertService.Common\RedAlertService.Common.csproj", "{E1ED6566-2D11-41EE-AB00-9D045336774F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedAlertService.WorkerService", "RedAlertService.WorkerService\RedAlertService.WorkerService.csproj", "{EF726965-DEAB-436D-A27F-9E84ECBEA823}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +34,10 @@ Global
 		{E1ED6566-2D11-41EE-AB00-9D045336774F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1ED6566-2D11-41EE-AB00-9D045336774F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1ED6566-2D11-41EE-AB00-9D045336774F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF726965-DEAB-436D-A27F-9E84ECBEA823}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF726965-DEAB-436D-A27F-9E84ECBEA823}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF726965-DEAB-436D-A27F-9E84ECBEA823}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF726965-DEAB-436D-A27F-9E84ECBEA823}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -13,7 +13,7 @@ namespace RedAlertService.Test
         [STAThread]
         static void Main()
         {
-            Common.Logging.LoggingService.ConfigureLogger();
+            Common.Logging.LoggingService.ConfigureLogger(string.Empty);
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();

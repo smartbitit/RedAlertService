@@ -10,8 +10,9 @@ namespace RedAlertService.Email
         {
             if (!ConnectionRead)
             {
-
-                string jsonData = File.ReadAllText("db_connection.json");
+                string filePath = Path.Combine(Common.IOHelper.GetAppPath(), "db_connection.json");
+                Common.Logging.LoggingService.LogInformation(@$"Reading DB connection information from {filePath}");
+                string jsonData = File.ReadAllText(filePath);
                 var connection = JsonSerializer.Deserialize<RedConnection>(jsonData);
                 if (connection != null)
                 {

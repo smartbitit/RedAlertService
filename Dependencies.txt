@@ -1,0 +1,3 @@
+.Net 6
+dotnet tool install --global wix
+sc create RedAlertService binPath="<Path to Your Published Executable>"

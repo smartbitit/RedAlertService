@@ -22,7 +22,7 @@ namespace RedAlertService.Test
                 var emailHelper = new Email.EmailHelper();
                 await emailHelper.SendEmail(
                     "Redalerts@redthorn.com",
-                    new List<string>() { "satyabratajena@gmail.com", "satyatjena@gmail.com", "satya.jena@smartbitit.com" },
+                    new List<string>() { "satya.jena@smartbitit.com" },
                     "Redthorn Test Email",
                     "Welcome to RedAlert Services.",
                     String.Empty,
@@ -37,13 +37,13 @@ namespace RedAlertService.Test
 
         private async void button_ProcessEmailRequests_Click(object sender, EventArgs e)
         {
+            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+            CancellationToken cancellationToken = cancellationTokenSource.Token;
             try
             {
                 var emailController = new Email.EmailController();
                 MessageBox.Show("Starting Process");
-                await emailController.ProcessEmailRequests();
-                MessageBox.Show(Email.EmailController.Messages);
-                Email.EmailController.ClearMessages();
+                await emailController.ProcessEmailRequests(cancellationToken, 1);
             }
             catch (Exception ex)
             {

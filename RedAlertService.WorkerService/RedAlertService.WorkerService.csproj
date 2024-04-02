@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-RedAlertService.WorkerService-F156E673-65FE-4113-8AF4-A2913EAF7587</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="CreateWindowsService.bat" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="CreateWindowsService.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RedAlertService.Common\RedAlertService.Common.csproj" />
+    <ProjectReference Include="..\RedAlertService.Email\RedAlertService.Email.csproj" />
+  </ItemGroup>
+</Project>

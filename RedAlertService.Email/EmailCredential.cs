@@ -38,7 +38,9 @@ namespace RedAlertService.Email
         {
             if (!EmailCredentialsRead)
             {
-                string jsonData = File.ReadAllText("email_credentials.json");
+                string filePath = Path.Combine(Common.IOHelper.GetAppPath(), "email_credentials.json");
+                Common.Logging.LoggingService.LogInformation(@$"Reading email credentials from {filePath}");
+                string jsonData = File.ReadAllText(filePath);
                 var emailCredentials = JsonSerializer.Deserialize<List<EmailCredential>>(jsonData);
                 if (emailCredentials != null)
                 {
