@@ -31,7 +31,6 @@ namespace RedAlertService.WorkerService
                         tasks.Add(_emailController.ProcessEmailRequests(stoppingToken, i));
                     }
 
-                    Common.Logging.LoggingService.LogInformation("RedAlertService started");
                     await Task.WhenAll(tasks);
 
                     await Task.Delay(1000, stoppingToken);

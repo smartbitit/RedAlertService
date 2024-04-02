@@ -9,9 +9,13 @@
 
   <ItemGroup>
     <None Remove="CreateWindowsService.bat" />
+    <None Remove="DeleteWindowsService.bat" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="DeleteWindowsService.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="CreateWindowsService.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

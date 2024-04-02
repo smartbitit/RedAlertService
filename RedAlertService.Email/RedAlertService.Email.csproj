@@ -9,11 +9,15 @@
   <ItemGroup>
     <None Remove="db_connection.json" />
     <None Remove="email_credentials.json" />
+    <None Remove="email_template_maps.json" />
     <None Remove="html_templates\redthorn_generic_template.html" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="db_connection.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="email_template_maps.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="email_credentials.json">

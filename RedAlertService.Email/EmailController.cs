@@ -99,6 +99,16 @@ WHERE
                     catch (Exception ex)
                     {
                         Common.Logging.LoggingService.LogError(ex.Message, ex);
+                        try
+                        {
+                            MoveEmailMSALToFailed(processor_id);
+                        }
+                        catch (Exception ex2)
+                        {
+                            Common.Logging.LoggingService.LogError("Failed to move from MSAL to MSAL_FAILED.", ex2);
+                        }
+                        
+
                     }
                 }
                 #endregion Read Email Requests
@@ -119,27 +129,68 @@ WHERE
                         emailRequest.Subject,
                         emailRequest.Message,
                         emailRequest.AttachmentName,
-                        emailRequest.Attachment);
+                        emailRequest.Attachment, 
+                        EmailTemplateMap.GetEmailTemplate(emailRequest.EventNo, emailRequest.NonEventNo));
 
-                    string deleteQuery = @$"DELETE FROM SFMAIL_MSAL WHERE (MSAL_ID = {emailRequest.MSALId})";
-                    using (OracleConnection connection = new OracleConnection(DBConnection.GetConnectionString()))
-                    {
-                        using (OracleCommand command = new OracleCommand(deleteQuery, connection))
-                        {
-                            try
-                            {
-                                connection.Open();
-                                command.ExecuteNonQuery();
-                            }
-                            catch (Exception ex)
-                            {
-                                Common.Logging.LoggingService.LogError(ex.Message, ex);
-                            }
-                        }
-                    }
+                    DeleteFromEmailMSAL(emailRequest.MSALId);
                 }
                 #endregion Send Email  and Delete Record from Database
             } while (emailRequests.Count > 0);
+        }
+
+        private void MoveEmailMSALToFailed(int processor_id)
+        {
+            string insertQuery = @$"INSERT INTO SFMAIL_MSAL_FAILED(MSAL_ID, EVENT_NO, SUBJECT, SENDER, RECIPIENTS, MESSAGE, NON_EVENT_NO, ATTACHMENT_NAME, ATTACHMENT) SELECT MSAL_ID, EVENT_NO, SUBJECT, SENDER, RECIPIENTS, MESSAGE, NON_EVENT_NO, ATTACHMENT_NAME, ATTACHMENT FROM SFMAIL_MSAL WHERE (PROCESSOR_ID = {processor_id})";
+            
+            string deleteQuery = @$"DELETE FROM SFMAIL_MSAL WHERE (PROCESSOR_ID = {processor_id})";
+
+            using (OracleConnection connection = new OracleConnection(DBConnection.GetConnectionString()))
+            {
+                connection.Open();
+                using (OracleTransaction transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        using (OracleCommand insertCommand = new OracleCommand(insertQuery, connection))
+                        using (OracleCommand deleteCommand = new OracleCommand(deleteQuery, connection))
+                        {
+                            insertCommand.Transaction = transaction;
+                            deleteCommand.Transaction = transaction;
+
+                            insertCommand.ExecuteNonQuery();
+                            deleteCommand.ExecuteNonQuery();
+
+                            transaction.Commit();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        Common.Logging.LoggingService.LogError(ex.Message, ex);
+                        throw;
+                    }
+                }
+            }
+        }
+
+        private void DeleteFromEmailMSAL(int msalId)
+        {
+            string deleteQuery = @$"DELETE FROM SFMAIL_MSAL WHERE (MSAL_ID = {msalId})";
+            using (OracleConnection connection = new OracleConnection(DBConnection.GetConnectionString()))
+            {
+                using (OracleCommand command = new OracleCommand(deleteQuery, connection))
+                {
+                    try
+                    {
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        Common.Logging.LoggingService.LogError(ex.Message, ex);
+                    }
+                }
+            }
         }
     }
 }
