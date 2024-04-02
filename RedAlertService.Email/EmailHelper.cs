@@ -8,7 +8,7 @@ namespace RedAlertService.Email
 {
     public class EmailHelper
     {
-            // Initialize the dictionary with common file extension to content type mappings
+        // Initialize the dictionary with common file extension to content type mappings
         private Dictionary<string, string> extensionToContentTypeMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
             { ".pdf", "application/pdf" },
@@ -37,22 +37,24 @@ namespace RedAlertService.Email
                 new TokenCredentialOptions { AuthorityHost = AzureAuthorityHosts.AzurePublicCloud });
 
             var graphServiceClient = new GraphServiceClient(credentials);
-            string htmlTemplatePath = $"html_templates/{htmlTemplateFileName}";
+            string htmlTemplatePath = Path.Combine(Common.IOHelper.GetAppPath(), "html_templates", htmlTemplateFileName);
             string htmlTemplateContent = File.ReadAllText(htmlTemplatePath);
             htmlTemplateContent = htmlTemplateContent.Replace("{{message}}", message);
 
-            var requestBody = new Microsoft.Graph.Users.Item.SendMail.SendMailPostRequestBody
+            var requestBody = new Microsoft.Graph.Users.Item.SendMail.SendMailPostRequestBody();
+            requestBody.Message = new models.Message
             {
-                Message = new models.Message
+                Subject = subject,
+                Body = new models.ItemBody
                 {
-                    Subject = subject,
-                    Body = new models.ItemBody
-                    {
-                        ContentType = models.BodyType.Html,
-                        Content = htmlTemplateContent
-                    },
-                    ToRecipients = recipients.Select((r) => new models.Recipient { EmailAddress = new models.EmailAddress { Address = r } }).ToList(),
-                    Attachments = string.IsNullOrWhiteSpace(attachmentName) ? null : new List<models.Attachment>()
+                    ContentType = models.BodyType.Html,
+                    Content = htmlTemplateContent
+                },
+                ToRecipients = recipients.Select((r) => new models.Recipient { EmailAddress = new models.EmailAddress { Address = r } }).ToList(),
+            };
+
+            if (!string.IsNullOrWhiteSpace(attachmentName))
+                requestBody.Message.Attachments = new List<models.Attachment>()
                     {
                         new models.FileAttachment
                         {
@@ -60,11 +62,10 @@ namespace RedAlertService.Email
                             Name = attachmentName,
                             ContentType = GetContentType(attachmentName),
                             ContentBytes = attachment
-                        },
-                    }
-                },
-                SaveToSentItems= false
-            };
+                        }
+                    };
+
+            requestBody.SaveToSentItems= false;
 
             var user = graphServiceClient
                 .Users[sender];
@@ -80,8 +81,8 @@ namespace RedAlertService.Email
             string extension = System.IO.Path.GetExtension(fileName);
             extension = extension.ToLowerInvariant();
 
-            return extensionToContentTypeMap.ContainsKey(extension) 
-                ? extensionToContentTypeMap[extension]  
+            return extensionToContentTypeMap.ContainsKey(extension)
+                ? extensionToContentTypeMap[extension]
                 : "application/octet-stream"; // Default content type if extension is not recognized
         }
     }
