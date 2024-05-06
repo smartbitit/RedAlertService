@@ -17,7 +17,7 @@ namespace RedAlertService.WorkerService
         {
             try
             {
-                Common.Logging.LoggingService.LogInformation("Starting RedAlertService......");
+                Common.Logging.LoggingService.LogInformation("RedAlertService Started");
                 await Task.Yield();
 
                 var numberOfProcessors = _configuration.GetValue<int>("EmailConfiguration:NumberOfProcessors");

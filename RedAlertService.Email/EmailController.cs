@@ -121,6 +121,7 @@ WHERE
                         break; // Exit the loop gracefully
 
                     Common.Logging.LoggingService.LogInformation($@"Sending Email >> Processor #: {processor_id} | Request #: {emailRequest.MSALId}");
+                    Common.Logging.LoggingService.LogInformation($@"Sender: {emailRequest.Sender} | Recipients #: {emailRequest.Recipients} | Subject #: {emailRequest.Subject} | EventNo #: {emailRequest.EventNo}");
 
                     counter++;
                     await emailHelper.SendEmail(

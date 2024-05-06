@@ -31,7 +31,7 @@ namespace RedAlertService.Email
             if (!EmailTemplateMapsRead)
             {
                 string filePath = Path.Combine(Common.IOHelper.GetAppPath(), "email_template_maps.json");
-                Common.Logging.LoggingService.LogInformation(@$"Reading email template maps from {filePath}");
+                //Common.Logging.LoggingService.LogInformation(@$"Reading email template maps from {filePath}");
                 string jsonData = File.ReadAllText(filePath);
                 var emailTemplateMaps = JsonSerializer.Deserialize<List<EmailTemplateMap>>(jsonData);
                 if (emailTemplateMaps != null)
